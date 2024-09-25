@@ -1,0 +1,52 @@
+######## hardware
+
+--PC
+    + Vykon za cenu
+    + Modularita
+    + Operacni system - lepe podporovane aplikacemi
+    - Velikost
+
+--Nootebook
+    + Operacni system - lepe podporovane aplikacemi
+
+
+--Tablet
+    + Velikost
+    - Android
+    - Operacni system - malo podpory
+
+
+
+Komponenty:
+    Mother board
+            -na zdi
+            -idealne instalovat jako prvni
+    Procesor
+            -mozek
+    Graficka karta
+            -rychle pro omezene mnozstvi procesu
+    RAM
+            -potrebuje proud
+            -ku cene je mala
+    Disk
+        SSD
+            -elektronicky
+        HDD
+            -magnet - zapisovani jehlou na tocici se disk
+    Zdroj
+            -napaji vse
+
+Kompatibilita:
+    Procesor
+                -Socket
+                -Chlazeni
+    Graficka karta
+                --nic
+    Zakladni deska
+                -Socket
+                -Typ op. pameti
+                -Pripojeni disku (rychlost prenosu (M.2))
+    Zdroj
+                -Vykon (ridit se cislem na graf. karte)
+    Skrin
+                -Musi se to tam vejit
