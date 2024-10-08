@@ -1,0 +1,21 @@
+2: {
+        'action' : '',
+        'text' : 'kus pribehu',
+        'options' : {
+            'a' : 'moznost 1',
+            'b' : 'moznost 2',
+            'c' : 'moznost 3'
+        },
+        'links' : {
+            'a' : 1,
+            'b' : 8,
+            'c' : 11
+        },
+        'conditionalOpt' : [
+            {
+                'text' : 'popis moznosti',
+                'condition' : 'health: <5',
+                'link' : 2
+            }
+        ]
+    }

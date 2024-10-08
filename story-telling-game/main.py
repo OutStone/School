@@ -16,8 +16,9 @@ def choice(story):
 
     Options = []
 
-    basicInfo()
     print(story['text'] + '\n')
+
+    basicInfo()
 
     a = "A - " + story['options']['a']
     Options.append(a)
@@ -45,14 +46,14 @@ def choice(story):
 
 
 def basicInfo():
-    # print('Mas ' + str(lives) + ' zivotu')
+    print('Mas ' + str(health) + ' zivotu')
     # print('Je ' + str(time) + ' hodin')
 
     if len(inventory) > 0:
         items = ''
         for itm in inventory:
             items += itm + ', '
-        items = items[:-2] # delets last comma and white space
+        items = items[:-2] # deletes last comma and white space
 
         # pos = items.rfind(',')
 
