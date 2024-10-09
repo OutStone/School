@@ -3,6 +3,10 @@ from texts import storyObj
 
 alphabeth = 'abcdefghijklmnopqrstuvwxyz'
 health = 10
+money = {
+    'měďáky' : 0,
+    'zlaťáky' : 0,
+}
 # time = 10
 #hunger = 0
 inGameVars = {}
@@ -20,13 +24,17 @@ def choice(story):
 
     basicInfo()
 
-    a = "A - " + story['options']['a']
-    Options.append(a)
-    b = "B - " + story['options']['b']
-    Options.append(b)
-    c = "C - " + story['options']['c']
-    Options.append(c)
+    # zpracovani moznosti bez podminek
+    mainOpt = list(story['options'].keys())
+    for key in mainOpt:
+        text = story['options'][key]
 
+        letter = alphabeth[len(Options)]
+        text = letter.upper() + ' - ' + text
+
+        Options.append(text)
+
+    # zpracovani moznosti s podminky
     if len(story['conditionalOpt']) > 0:
         for item in story['conditionalOpt']:
             if condition(item['condition']):
@@ -38,6 +46,8 @@ def choice(story):
                 story['links'][letter] = item['link']
                 
 
+    
+    # vytiskne vsechny moznosti, ze kterych je na vyber
     for option in Options:
         print(option)
 
@@ -48,6 +58,15 @@ def choice(story):
 def basicInfo():
     print('Mas ' + str(health) + ' zivotu')
     # print('Je ' + str(time) + ' hodin')
+
+    if money['měďáky'] > 0 and money['zlaťáky'] > 0:
+        print('Mas ' + str(money['měďáky']) + 'měďáků a '  + str(money['zlaťáky']) + 'zlaťáků')
+    elif money['měďáky'] > 0:
+        print('Mas ' + str(money['měďáky']) + 'měďáků')
+    elif money['zlaťáky'] > 0:
+        print('Mas '  + str(money['zlaťáky']) + 'zlaťáků')
+    else:
+        print("Jsi bez peněz")
 
     if len(inventory) > 0:
         items = ''
@@ -63,6 +82,7 @@ def basicInfo():
         print('V inventari mas ' + items  + '\n')
     else:
         print('Mas prazdny inventar'  + '\n')
+    
 
 
 def actionParser(action):
@@ -87,6 +107,26 @@ def actionParser(action):
         
         match command:
             # inventory management
+            case 'money-bronz':
+                value = removeSpace(param[1:])
+                sign = value[0]
+                value = int(value)
+
+                match sign:
+                    case '+':
+                        money['měďáky'] += value
+                    case '-':
+                        money['měďáky'] -= value
+            case 'money-gold':
+                value = removeSpace(param[1:])
+                sign = value[0]
+                value = int(value)
+
+                match sign:
+                    case '+':
+                        money['zlaťáky'] += value
+                    case '-':
+                        money['zlaťáky'] -= value
             case 'Add-item':
                 inventory.append(param)
             case 'Delete-item':
