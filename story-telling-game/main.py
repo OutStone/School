@@ -60,11 +60,11 @@ def basicInfo():
     # print('Je ' + str(time) + ' hodin')
 
     if money['měďáky'] > 0 and money['zlaťáky'] > 0:
-        print('Mas ' + str(money['měďáky']) + 'měďáků a '  + str(money['zlaťáky']) + 'zlaťáků')
+        print('Mas ' + str(money['měďáky']) + ' měďáků a '  + str(money['zlaťáky']) + 'zlaťáků')
     elif money['měďáky'] > 0:
-        print('Mas ' + str(money['měďáky']) + 'měďáků')
+        print('Mas ' + str(money['měďáky']) + ' měďáků')
     elif money['zlaťáky'] > 0:
-        print('Mas '  + str(money['zlaťáky']) + 'zlaťáků')
+        print('Mas '  + str(money['zlaťáky']) + ' zlaťáků')
     else:
         print("Jsi bez peněz")
 
@@ -108,8 +108,8 @@ def actionParser(action):
         match command:
             # inventory management
             case 'money-bronz':
+                sign = param[0]
                 value = removeSpace(param[1:])
-                sign = value[0]
                 value = int(value)
 
                 match sign:
@@ -117,9 +117,16 @@ def actionParser(action):
                         money['měďáky'] += value
                     case '-':
                         money['měďáky'] -= value
+                        if money['měďáky']<0:
+                            print('money error, you have a deficit')
+
+                while money['měďáky']>24:
+                        money['zlaťáky'] += 1
+                        money['měďáky'] -= 24
+
             case 'money-gold':
+                sign = param[0]
                 value = removeSpace(param[1:])
-                sign = value[0]
                 value = int(value)
 
                 match sign:
@@ -127,6 +134,9 @@ def actionParser(action):
                         money['zlaťáky'] += value
                     case '-':
                         money['zlaťáky'] -= value
+                        if money['zlaťáky']<0:
+                            print('money error, you have a deficit')
+                            
             case 'Add-item':
                 inventory.append(param)
             case 'Delete-item':
@@ -187,6 +197,53 @@ def condition(condition):
     param = removeSpace(param)
 
     match command:
+        case 'money-gold':
+            sign = param[0]
+            param = param[1:] # zbavi se znaminka ktere ulozil do sign
+
+            if param[0] == '=':
+                sign += param[0]
+                param = param[1:] # opet zbavi se znaminka ktere ulozil do sign
+            
+            match sign:
+                case '<':
+                    res = money['zlaťáky'] < int(param)
+                case '<=':
+                    res = money['zlaťáky'] <= int(param)
+                case '>':
+                    res = money['zlaťáky'] > int(param)
+                case '>=':
+                    res = money['zlaťáky'] >= int(param)
+                case '==':
+                    res = money['zlaťáky'] == int(param)
+                case '!=':
+                    res = money['zlaťáky'] != int(param)
+                case _: # probehne pokud nenajde spravnou podminku
+                    print('chyba - hodnota sign neni z pozadovanych limitu. sign = ',sign)
+        case 'money-bronz':
+            sign = param[0]
+            param = param[1:] # zbavi se znaminka ktere ulozil do sign
+
+            if param[0] == '=':
+                sign += param[0]
+                param = param[1:] # opet zbavi se znaminka ktere ulozil do sign
+            
+            match sign:
+                case '<':
+                    res = money['měďáky'] < int(param)
+                case '<=':
+                    res = money['měďáky'] <= int(param)
+                case '>':
+                    res = money['měďáky'] > int(param)
+                case '>=':
+                    res = money['měďáky'] >= int(param)
+                case '==':
+                    res = money['měďáky'] == int(param)
+                case '!=':
+                    res = money['měďáky'] != int(param)
+                case _: # probehne pokud nenajde spravnou podminku
+                    print('chyba - hodnota sign neni z pozadovanych limitu. sign = ',sign)
+
         case 'health':
             sign = param[0]
             param = param[1:] # zbavi se znaminka ktere ulozil do sign
