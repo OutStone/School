@@ -26,13 +26,13 @@ Ale teď je ráno, svítalo už asi před hodinou a ty už jsi dávno po skromn�
 jsi jít prodávat do svého obchůdku, aby tvoji zákazníci nečekali""",
         'options' : {
             'a' : 'Jdu prodávat chleba',
-            #'b' : 'Jdu vzbudit děti', # TODO
-            #'c' : 'Kašlu na obchod - jdu kecat se sousedy' # TODO
+            'b' : 'Musím najít děti! Začnu poptáním se u sousedů'
+            #'c' : 'Jdu vzbudit děti' # TODO
         },
         'links' : {
             'a' : 'SellingPath-1',
-            'b' : 8, # TODO
-            'c' : 11 # TODO
+            'b' : 'Ask-Neighbors',
+            'c' : '' # TODO
         },
         'conditionalOpt' : []
     },
@@ -49,18 +49,18 @@ A hle, tady je! Jde k tobě tvůj soused kovář a vypadá docela nervózně.
 Kovář: Zdař bůh, neviděl jsi někde mého synka? Hledám Karla celé ráno, ale jakoby se do země propadl.""",
         'options' : {
             'a' : 'Karla? Ne, toho jsem jeste nepotkal. Ale to nevadí on se najde. Nechceš chleba?',
-            #'b' : 'To je divné... Moje děti taky někam zmizeli! Měli bychom se zeptat u sousedů.', # TODO
+            'b' : 'To je divné... Moje děti taky někam zmizeli! Měli bychom se zeptat u sousedů.',
             # 'c' : 'Mám tvoje děti a už je nikdy neuvidíš!' # TODO
         },
         'links' : {
             'a' : 'SellingPath-2',
-            'b' : 8, # TODO
-            'c' : 11 # TODO
+            'b' : 'Ask-Neighbors',
+            'c' : '' # TODO
         },
         'conditionalOpt' : []
     },
     'SellingPath-2': {
-        'action' : 'money-bronz: +1',
+        'action' : 'Money-bronz: +1',
         'text' : 
 """Kovář: Jo, chleba bych si vzal. Tady máš 1 mědák.""",
         'options' : {
@@ -71,7 +71,7 @@ Kovář: Zdař bůh, neviděl jsi někde mého synka? Hledám Karla celé ráno,
         'links' : {
             'a' : 'SellingPath-Loop-1',
             'b' : 'SellingPath-More-Money', # TODO
-            'c' : 11 # TODO
+            'c' : '' # TODO
         },
         'conditionalOpt' : []
     },
@@ -81,13 +81,13 @@ Kovář: Zdař bůh, neviděl jsi někde mého synka? Hledám Karla celé ráno,
 """Nic se neděje a děti pořád nikde. Možná bych je měl jít hledat.""",
         'options' : {
             'a' : 'NE, kašlu na to, jdu dál prodávat',
-            # 'b' : '', # TODO
-            # 'c' : 'Mám tvoje děti a už je nikdy neuvidíš!' # TODO
+            'b' : 'Jdu se poptat u sousedů',
+            'c' : 'Ukončit hru'
         },
         'links' : {
             'a' : 'SellingPath-Loop-2',
-            'b' : 8, # TODO
-            'c' : 11 # TODO
+            'b' : 'Ask-Neighbors',
+            'c' : 'END'
         },
         'conditionalOpt' : []
     },
@@ -107,18 +107,18 @@ A hle, tady je! Jde k tobě tvůj soused kovář a vypadá docela nervózně.
 Kovář: Zdař bůh, neviděl jsi někde mého synka Karla? Hledám ho celou věčnost, ale jakoby se do země propadl.""",
         'options' : {
             'a' : 'Karla? Ne, toho jsem jeste nepotkal. Ale to nevadí on se najde. Nechceš chleba?',
-            #'b' : 'To je divné... Moje děti taky někam zmizeli! Měli bychom se zeptat u sousedů.', # TODO
+            'b' : 'To je divné... Moje děti taky někam zmizeli! Měli bychom se zeptat u sousedů.',
             # 'c' : 'Mám tvoje děti a už je nikdy neuvidíš!' # TODO
         },
         'links' : {
             'a' : 'SellingPath-Loop-3',
-            'b' : 8, # TODO
-            'c' : 11 # TODO
+            'b' : 'Ask-Neighbors',
+            'c' : '' # TODO
         },
         'conditionalOpt' : []
     },
     'SellingPath-Loop-3': {
-        'action' : 'money-bronz: +1',
+        'action' : 'Money-bronz: +1',
         'text' : 
 """Kovář: Jo, chleba bych si vzal. Tady máš 1 mědák.""",
         'options' : {
@@ -129,12 +129,12 @@ Kovář: Zdař bůh, neviděl jsi někde mého synka Karla? Hledám ho celou vě
         'links' : {
             'a' : 'SellingPath-Loop-1',
             'b' : 'SellingPath-More-Money',
-            'c' : 11 # TODO
+            'c' : '' # TODO
         },
         'conditionalOpt' : []
     },
     'SellingPath-More-Money': {
-        'action' : 'money-bronz: +2',
+        'action' : 'Money-bronz: +2',
         'text' : 
 """Ty: Heeej, kováři, tenhle chleba je kvalitní. Koukej mi dát další 2 měďáky!
 Kovář: No dobře, tady máš ty peníze.""",
@@ -146,7 +146,7 @@ Kovář: No dobře, tady máš ty peníze.""",
         'links' : {
             'a' : 'SellingPath-Loop-1',
             'b' : 'SellingPath-More-Money',
-            'c' : 11 # TODO
+            'c' : '' # TODO
         },
         'conditionalOpt' : []
     },
@@ -154,42 +154,57 @@ Kovář: No dobře, tady máš ty peníze.""",
         'action' : '',
         'text' : 
 """Zaťukáš na dveře sousedního domu a skoro hned otevře sousedka.
+
 Ty: Pozdrav bůh! Neviděli jste někde mé děti? Nikde je nemůžu najít.
-Sousedka: Bohužel ne, ale počkat, naše děti jsou někde pryč také!""",
+Sousedka: Bohužel ne, ale počkat, naše děti jsou pryč také!""",
         'options' : {
             'a' : 'To je divné, pojdmě se poptat dále',
             'b' : 'Asi si někde hrají. Já jdu prodávat chleba',
             # 'c' : 'Mám tvoje děti a už je nikdy neuvidíš!' # TODO
         },
         'links' : {
-            'a' : 'Ask-Neighbor-2',
+            'a' : 'Ask-Neighbors-2',
             'b' : 'SellingPath-1',
-            'c' : 11 # TODO
+            'c' : '' # TODO
         },
-         'conditionalOpt' : []#{
-        #     'text' : 'Kováři zmizeli děti také, takže bychom se měli jít poptat dále',
-        #     'condition' : 'health: <5',
-        #     'link' : 2
-        # }]
+         'conditionalOpt' : [{
+            'text' : 'Kováři zmizeli děti také, takže bychom se měli jít poptat dále',
+            'condition' : 'game-var: Meet-Kovar; Ano',
+            'link' : 'Ask-Neighbors-2'
+        }]
     },
     'Ask-Neighbors-2': {
-        'action' : '',
+        'action' : 'Add-item: starý železný meč tvého souseda',
         'text' : 
-"""Vic priste""",
+"""Jdeš o dům dál a tam zaťukáš. Po chvilce se ve dveřích objeví soused a ty hned spustíš:
+Ty: Dobrý den sousede! Neviděli jste někde mé děti? Nikde je nemůžu najít.
+Soused: Děti jsem nikde neviděl, ale myslím, že je odvedl ten divný, slizký krysař! Na tady máš můj rodiný meč a najdi krysaře a přiveď svoje a moje aaa vlastně všechny děti zpátky domů.
+""",
         'options' : {
-            #'a' : 'To je divné, pojdmě se poptat dále',
-            #'b' : 'Asi si někde hrají. Já jdu prodávat chleba',
-            # 'c' : 'Mám tvoje děti a už je nikdy neuvidíš!' # TODO
+            'a' : 'Ó děkuji za tento převzácný dar a slibuji, že se tohoto úkolu zhostím jak nejlépe to jen dokážu!',
+            #'b' : '',# TODO
+            # 'c' : '' # TODO
         },
         'links' : {
-            'a' : 'Ask-Neighbor-2',
-            'b' : 'SellingPath-1',
-            'c' : 11 # TODO
+            'a' : 'END',
+            'b' : '', # TODO
+            'c' : '' # TODO
         },
-         'conditionalOpt' : []#{
-        #     'text' : 'Kováři zmizeli děti také, takže bychom se měli jít poptat dále',
-        #     'condition' : 'health: <5',
-        #     'link' : 2
-        # }]
+         'conditionalOpt' : []
+    },
+    'END': {
+        'action' : '',
+        'text' : 
+"""
+Zde prozatím příběh končí a na pokračování si budeš muset chvíli počkat
+
+díky za tvou pozornost
+copyright @ David Laušman
+""",
+        'options' : {
+        },
+        'links' : {
+        },
+         'conditionalOpt' : []
     }
 }

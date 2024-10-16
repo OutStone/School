@@ -45,15 +45,17 @@ def choice(story):
 
                 Options.append(text)
                 story['links'][letter] = item['link']
-                
+
 
     
     # vytiskne vsechny moznosti, ze kterych je na vyber
     for option in Options:
         print(option)
-
-    res = input("Volim: ")
-    return res
+    if len(Options) > 0:
+        res = input("Volim: ")
+        return res
+    else:
+        return 'STOP'
 
 
 def basicInfo():
@@ -62,7 +64,7 @@ def basicInfo():
     # print('Je ' + str(time) + ' hodin')
 
     if money['měďáky'] > 0 and money['zlaťáky'] > 0:
-        print('Mas ' + str(money['měďáky']) + ' měďáků a '  + str(money['zlaťáky']) + 'zlaťáků')
+        print('Mas ' + str(money['měďáky']) + ' měďáků a '  + str(money['zlaťáky']) + ' zlaťáků')
     elif money['měďáky'] > 0:
         print('Mas ' + str(money['měďáky']) + ' měďáků')
     elif money['zlaťáky'] > 0:
@@ -109,7 +111,7 @@ def actionParser(action):
         
         match command:
             # inventory management
-            case 'money-bronz':
+            case 'Money-bronz':
                 sign = param[0]
                 value = removeSpace(param[1:])
                 value = int(value)
@@ -120,13 +122,13 @@ def actionParser(action):
                     case '-':
                         money['měďáky'] -= value
                         if money['měďáky']<0:
-                            print('money error, you have a deficit')
+                            print('ERROR - you do not have enought money - currentely ' + money['měďáky'])
 
                 while money['měďáky']>24:
                         money['zlaťáky'] += 1
                         money['měďáky'] -= 24
 
-            case 'money-gold':
+            case 'Money-gold':
                 sign = param[0]
                 value = removeSpace(param[1:])
                 value = int(value)
@@ -137,7 +139,7 @@ def actionParser(action):
                     case '-':
                         money['zlaťáky'] -= value
                         if money['zlaťáky']<0:
-                            print('money error, you have a deficit')
+                            print('ERROR - you do not have enought money - currentely ' + money['zlaťáky'])
                             
             case 'Add-item':
                 inventory.append(param)
@@ -221,7 +223,7 @@ def condition(condition):
                 case '!=':
                     res = money['zlaťáky'] != int(param)
                 case _: # probehne pokud nenajde spravnou podminku
-                    print('chyba - hodnota sign neni z pozadovanych limitu. sign = ',sign)
+                    print('ERROR - comparing condition ' + sign + ' does NOT EXIST')
         case 'money-bronz':
             sign = param[0]
             param = param[1:] # zbavi se znaminka ktere ulozil do sign
@@ -244,7 +246,7 @@ def condition(condition):
                 case '!=':
                     res = money['měďáky'] != int(param)
                 case _: # probehne pokud nenajde spravnou podminku
-                    print('chyba - hodnota sign neni z pozadovanych limitu. sign = ',sign)
+                    print('ERROR - comparing condition ' + sign + ' does NOT EXIST')
 
         case 'health':
             sign = param[0]
@@ -268,7 +270,7 @@ def condition(condition):
                 case '!=':
                     res = health != int(param)
                 case _: # probehne pokud nenajde spravnou podminku
-                    print('chyba - hodnota sign neni z pozadovanych limitu. sign = ',sign)
+                    print('ERROR - comparing condition ' + sign + ' does NOT EXIST')
         case 'have-itm':
             res = param in inventory
         case 'game-var':
@@ -279,12 +281,9 @@ def condition(condition):
             
             keys = inGameVars.keys()
             if varName in keys:
-                if inGameVars[varName] == value:
-                    res = True
-                else:
-                    res = False
+                res = inGameVars[varName] == value
             else:
-                print('ERROR - Game variable ' + varName + ' does NOT EXIST')
+                res = False
         case 'game-math-var':
             pos = param.find(';') # variable and its value are separated by ;
 
@@ -314,7 +313,7 @@ def condition(condition):
                 case '!=':
                     res = money['zlaťáky'] != int(value)
                 case _: # probehne pokud nenajde spravnou podminku
-                    print('chyba - hodnota sign neni z pozadovanych limitu. sign = ',sign)
+                    print('ERROR - comparing condition ' + sign + ' does NOT EXIST')
 
 
 
@@ -324,9 +323,10 @@ def condition(condition):
                 else:
                     res = False
             else:
-                print('ERROR - Game variable ' + varName + ' does NOT EXIST')
+                res = False
         case _:
-            print('chyba - podminka nebyla nalezena')
+            print('ERROR - Game condition ' + command + ' does NOT EXIST')
+            res = False
 
     return res
 
@@ -349,4 +349,7 @@ while gameRunning:
     os.system('cls')
     storyNow = storyObj[PosInGame]
     res = choice( storyNow )
+    if res == 'STOP':
+        gameRunning = False
+        continue
     PosInGame = storyNow['links'][res]
