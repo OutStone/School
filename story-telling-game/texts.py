@@ -37,7 +37,7 @@ jsi jít prodávat do svého obchůdku, aby tvoji zákazníci nečekali""",
         'conditionalOpt' : []
     },
     'SellingPath-1': {
-        'action' : '',
+        'action' : 'Create-var: Meet-Kovar; Ano',
         'text' : 
 """Napekl jsi čerstvý chleba a čekáš na svého prvního zákazníka dne.
 ...
@@ -81,7 +81,7 @@ Kovář: Zdař bůh, neviděl jsi někde mého synka? Hledám Karla celé ráno,
 """Nic se neděje a děti pořád nikde. Možná bych je měl jít hledat.""",
         'options' : {
             'a' : 'NE, kašlu na to, jdu dál prodávat',
-            # 'b' : 'OChci od kováře víc', # TODO
+            # 'b' : '', # TODO
             # 'c' : 'Mám tvoje děti a už je nikdy neuvidíš!' # TODO
         },
         'links' : {
@@ -92,7 +92,7 @@ Kovář: Zdař bůh, neviděl jsi někde mého synka? Hledám Karla celé ráno,
         'conditionalOpt' : []
     },
     'SellingPath-Loop-2': {
-        'action' : '',
+        'action' : 'Create-var: Meet-Kovar; Ano',
         'text' : 
 """Napekl jsi znova čerstvý chleba a čekáš na svého dalšího zákazníka dne.
 
@@ -149,5 +149,47 @@ Kovář: No dobře, tady máš ty peníze.""",
             'c' : 11 # TODO
         },
         'conditionalOpt' : []
+    },
+    'Ask-Neighbors': {
+        'action' : '',
+        'text' : 
+"""Zaťukáš na dveře sousedního domu a skoro hned otevře sousedka.
+Ty: Pozdrav bůh! Neviděli jste někde mé děti? Nikde je nemůžu najít.
+Sousedka: Bohužel ne, ale počkat, naše děti jsou někde pryč také!""",
+        'options' : {
+            'a' : 'To je divné, pojdmě se poptat dále',
+            'b' : 'Asi si někde hrají. Já jdu prodávat chleba',
+            # 'c' : 'Mám tvoje děti a už je nikdy neuvidíš!' # TODO
+        },
+        'links' : {
+            'a' : 'Ask-Neighbor-2',
+            'b' : 'SellingPath-1',
+            'c' : 11 # TODO
+        },
+         'conditionalOpt' : []#{
+        #     'text' : 'Kováři zmizeli děti také, takže bychom se měli jít poptat dále',
+        #     'condition' : 'health: <5',
+        #     'link' : 2
+        # }]
+    },
+    'Ask-Neighbors-2': {
+        'action' : '',
+        'text' : 
+"""Vic priste""",
+        'options' : {
+            #'a' : 'To je divné, pojdmě se poptat dále',
+            #'b' : 'Asi si někde hrají. Já jdu prodávat chleba',
+            # 'c' : 'Mám tvoje děti a už je nikdy neuvidíš!' # TODO
+        },
+        'links' : {
+            'a' : 'Ask-Neighbor-2',
+            'b' : 'SellingPath-1',
+            'c' : 11 # TODO
+        },
+         'conditionalOpt' : []#{
+        #     'text' : 'Kováři zmizeli děti také, takže bychom se měli jít poptat dále',
+        #     'condition' : 'health: <5',
+        #     'link' : 2
+        # }]
     }
 }

@@ -1,4 +1,5 @@
 from texts import storyObj
+import os
 
 
 alphabeth = 'abcdefghijklmnopqrstuvwxyz'
@@ -56,6 +57,7 @@ def choice(story):
 
 
 def basicInfo():
+
     print('Mas ' + str(health) + ' zivotu')
     # print('Je ' + str(time) + ' hodin')
 
@@ -145,13 +147,13 @@ def actionParser(action):
             case 'Create-var' | 'Change-var':
                 pos = param.find(';') # variable and its value are separated by ';'
 
-                varName = param[:pos]
-                value = param[pos + 1:]
+                varName = removeSpace(param[:pos])
+                value = removeSpace(param[pos + 1:])
 
                 inGameVars[varName] = value
 
             case 'Delete-var':
-                del inGameVars[param]
+                del inGameVars[removeSpace(param)]
             # math in game variables
             case 'Create-math-var':
                 pos = param.find(';') # variable and its value are separated by ;
@@ -269,6 +271,60 @@ def condition(condition):
                     print('chyba - hodnota sign neni z pozadovanych limitu. sign = ',sign)
         case 'have-itm':
             res = param in inventory
+        case 'game-var':
+            pos = param.find(';') # variable and its value are separated by ;
+
+            varName = removeSpace(param[:pos])
+            value = removeSpace(param[pos + 1:])
+            
+            keys = inGameVars.keys()
+            if varName in keys:
+                if inGameVars[varName] == value:
+                    res = True
+                else:
+                    res = False
+            else:
+                print('ERROR - Game variable ' + varName + ' does NOT EXIST')
+        case 'game-math-var':
+            pos = param.find(';') # variable and its value are separated by ;
+
+            varName = removeSpace(param[:pos])
+            value = removeSpace(param[pos + 1:])
+            
+            keys = inGameVars.keys()
+            
+            sign = value[0]
+            value = value[1:] # zbavi se znaminka ktere ulozil do sign
+
+            if value[0] == '=':
+                sign += value[0]
+                value = value[1:] # opet zbavi se znaminka ktere ulozil do sign
+            
+            match sign:
+                case '<':
+                    res = money['zlaťáky'] < int(value)
+                case '<=':
+                    res = money['zlaťáky'] <= int(value)
+                case '>':
+                    res = money['zlaťáky'] > int(value)
+                case '>=':
+                    res = money['zlaťáky'] >= int(value)
+                case '==':
+                    res = money['zlaťáky'] == int(value)
+                case '!=':
+                    res = money['zlaťáky'] != int(value)
+                case _: # probehne pokud nenajde spravnou podminku
+                    print('chyba - hodnota sign neni z pozadovanych limitu. sign = ',sign)
+
+
+
+            if varName in keys:
+                if inGameVars[varName] == value:
+                    res = True
+                else:
+                    res = False
+            else:
+                print('ERROR - Game variable ' + varName + ' does NOT EXIST')
         case _:
             print('chyba - podminka nebyla nalezena')
 
@@ -290,6 +346,7 @@ def removeSpace(str):
 
 
 while gameRunning:
+    os.system('cls')
     storyNow = storyObj[PosInGame]
     res = choice( storyNow )
     PosInGame = storyNow['links'][res]
