@@ -1,0 +1,105 @@
+## tohle je ukázková část příběhového objektu
+
+# TODO: action & condition documentation
+
+
+2: {
+        'action' : '',                  <--- Akce která bude vykonána ještě před vypsáním textu tohoto příběhového bloku
+
+        'text' : 'kus pribehu',         <--- Příběh, který bude vypsán do konzole
+
+        'options' : {                   <--- Každá možnost má své specifické MALÉ písmeno, které bude použito i pro pojmenování možnosti v konzoli
+            'a' : 'moznost 1',
+            'b' : 'moznost 2',
+            'c' : 'moznost 3'
+        },
+        'actions' : {                   <--- Akce vázaná na výběr hráče - je vykonána pokud hráč vybere danou herní možnost
+            'a' : 'Add-item: meč'               NENÍ POVINNÁ PRO KAŽDÉ PÍSMENO tj. objekt 'actions' může zůstat prázdný
+        },
+        'links' : {                     <--- Vazby herních možností na další příběhové bloky
+            'a' : 1,                            MUSÍ ODPOVÍDAT POČTU MOŽNOSTÍ
+            'b' : 8,
+            'c' : 11
+        },
+        'conditionalOpt' : [            <--- akce, jejichž zobrazení je podmíněno určitou podmínkou
+            {
+                'text' : 'popis moznosti',          <--- Text                   
+                'condition' : 'health: <5',         <--- Podmínka pro zobrazení herní možnosti ---- MUSÍ BÝT PŘESNĚ JEDNA PODMÍNKA
+                'action' : '',                      <--- Akce vázaná na výběr hráče - je vykonána pokud hráč vybere danou herní možnost
+                'link' : 2                          <--- Vazby herní možnosti na další příběhový blok --- POVINNÁ
+            }
+        ]
+    }
+
+
+=##=##= Akce =##=##=    
+    - akce jsou napsány jako textové řetězce
+    - příkaz a parametry jsou odděleny dvoutečkou
+
+            Př.   Money-bronz: +10
+
+    - více akcí je odděleno dvouznakem &&
+
+    - u akcí je na výběr z následujících příkazů
+        a)  Money-bronz
+                - parametry: číselná hodnota s znaménkem (+ -) na začátku
+                - popis: přidá nebo ubere měďáky (peníze s menší hodnotou - kurz směny je 1:24)
+        b)  Money-gold
+                - parametry: číselná hodnota s znaménkem (+ -) na začátku
+                - popis: přidá nebo ubere zlaťáky
+        c)  Add-item
+                - parametry: Název předmětu
+                - popis: přidá věc do inventáře
+        d)  Delete-item
+                - parametry: Název předmětu
+                - popis: odebere věc z inventáře
+        e)  Create-var
+                - parametry: název a hodnota oddělené středníkem
+                - popis: vyvtoří textovou proměnnou, přepíše pokud existuje (tj. lze zaměnit příkazem Change-var)
+        e)  Change-var
+                - parametry: název a nová hodnota oddělené středníkem
+                - popis: upraví hodnotu textové proměnné, vytvoří pokud neexistuje  (tj. lze zaměnit příkazem Create-var)
+        e)  Delete-var
+                - parametry: název
+                - popis: smaže proměnnou
+        e)  Create-math-var
+                - parametry: název a číselná hodnota oddělené středníkem
+                - popis: vyvtoří číselnou proměnnou
+        e)  Change-math-var
+                - parametry: název a hodnota (se znamínkem matematické operace) oddělené středníkem
+                - popis: upraví číselnou proměnnou
+        e)  Delete-math-var
+                - parametry: název
+                - popis: smaže číselnou proměnnou
+
+
+
+=##=##= Podmínky =##=##=
+    - podmínky jsou napsány jako textové řetězce
+    - podmínka a parametry jsou odděleny dvoutečkou
+
+            Př.   Money-bronz: <10
+
+    - zatím jen jedna podmínka
+
+    - porovnávací znaménka: <  >  <=  >=  ==  !=
+
+    - u podmínek je na výběr z následujících příkazů
+        a)  Money-bronz
+                - parametry: číselná hodnota s porovnávacím znaménkem na začátku
+                - popis: zkontroluje jestli hodnota měďáků odpovídá požadavku
+        b)  Money-gold
+                - parametry: číselná hodnota s porovnávacím znaménkem na začátku
+                - popis: zkontroluje jestli hodnota zlaťáků odpovídá požadavku
+        c)  Health
+                - parametry: číselná hodnota s porovnávacím znaménkem na začátku
+                - popis: zkontroluje jestli počet životů odpovídá požadavku
+        d)  Have-item
+                - parametry: Název předmětu
+                - popis: zkontroluje jesli je daný předmět v inventáři
+        e)  Game-var
+                - parametry: název textové proměnné a hodnota oddělené středníkem
+                - popis: zkontroluje jestli hodnota požadované textové proměnné odpovídá požadavku. Vrátí nepravdu pokud proměnné neexistuje
+        e)  Game-math-var
+                - parametry: název číselné proměnné a hodnota (s porovnávacím znaménkem) oddělené středníkem
+                - popis: zkontroluje jestli hodnota požadované číselné proměnné odpovídá požadavku. Vrátí nepravdu pokud proměnné neexistuje

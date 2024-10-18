@@ -1,4 +1,4 @@
-from texts import storyObj
+from Story_Texts import storyObj
 import os
 
 
@@ -38,8 +38,7 @@ def choice(story):
     for key in mainOpt:
         text = story['options'][key]
 
-        letter = alphabeth[len(Options)]
-        text = letter.upper() + ' - ' + text
+        text = key.upper() + ' - ' + text
 
         Options.append(text) # přidá text herní možnosti do seznamu textů, ze kterýchje na výběr
         usedKeys.append(key)
@@ -242,7 +241,7 @@ def condition(condition):
     # hledání správné herní podmínky
     match command:
         # peníze
-        case 'money-gold':
+        case 'Money-gold':
             # znamínko operace je uloženo na prvním jednom nebo dvou místech
             sign = param[0]
             param = param[1:]
@@ -267,7 +266,7 @@ def condition(condition):
                     res = money['zlaťáky'] != int(param)
                 case _: # proběhne pokud program nenajde správnou podmínku
                     print('ERROR - comparing condition ' + sign + ' does NOT EXIST')
-        case 'money-bronz':
+        case 'Money-bronz':
             # znamínko operace je uloženo na prvním jednom nebo dvou místech
             sign = param[0]
             param = param[1:]
@@ -293,7 +292,7 @@ def condition(condition):
                 case _: # proběhne pokud program nenajde správnou podmínku
                     print('ERROR - comparing condition ' + sign + ' does NOT EXIST')
         # zdraví hráče
-        case 'health':
+        case 'Health':
             # znamínko operace je uloženo na prvním jednom nebo dvou místech
             sign = param[0]
             param = param[1:]
@@ -319,10 +318,10 @@ def condition(condition):
                 case _: # proběhne pokud program nenajde správnou podmínku
                     print('ERROR - comparing condition ' + sign + ' does NOT EXIST')
         # kontrola jestli má hráč požadovanou věc ve svém inventáři
-        case 'have-itm':
+        case 'Have-item':
             res = param in inventory
         # kontrola hodnoty herní proměnné (textový řetězec)
-        case 'game-var':
+        case 'Game-var':
             pos = param.find(';') # název proměnné a její požadovaná hodnota jsou odděleny znakem ;
 
             varName = removeSpace(param[:pos])
@@ -335,7 +334,7 @@ def condition(condition):
             else:
                 res = False
         # kontrola hodnoty herní proměnné (číslená hodnota)
-        case 'game-math-var':
+        case 'Game-math-var':
             pos = param.find(';') # název proměnné a její požadovaná hodnota jsou odděleny znakem ;
 
             varName = removeSpace(param[:pos])
@@ -413,7 +412,7 @@ def compareLists(a,b):
 
 # hlavní herní cyklus
 while gameRunning:
-    #os.system('cls') # smaže konzoli
+    os.system('cls') # smaže konzoli
     storyNow = storyObj[PosInGame]
     res = choice( storyNow )
 

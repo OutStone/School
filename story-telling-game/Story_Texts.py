@@ -188,7 +188,7 @@ Sousedka: Bohužel ne, ale počkat, naše děti jsou pryč také!""",
          'conditionalOpt' : [{
             'text' : 'Kováři zmizeli děti také, takže bychom se měli jít poptat dále',
             'action' : '',
-            'condition' : 'game-var: Meet-Kovar; Ano',
+            'condition' : 'Game-var: Meet-Kovar; Ano',
             'link' : 'Ask-Neighbors-2'
         }]
     },
