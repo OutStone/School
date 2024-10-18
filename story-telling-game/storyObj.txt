@@ -6,6 +6,9 @@
             'b' : 'moznost 2',
             'c' : 'moznost 3'
         },
+        'actions' : {
+            'a' : ''
+        },
         'links' : {
             'a' : 1,
             'b' : 8,
@@ -14,6 +17,7 @@
         'conditionalOpt' : [
             {
                 'text' : 'popis moznosti',
+                'action' : '',
                 'condition' : 'health: <5',
                 'link' : 2
             }

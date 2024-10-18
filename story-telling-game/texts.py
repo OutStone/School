@@ -29,6 +29,8 @@ jsi jít prodávat do svého obchůdku, aby tvoji zákazníci nečekali""",
             'b' : 'Musím najít děti! Začnu poptáním se u sousedů'
             #'c' : 'Jdu vzbudit děti' # TODO
         },
+        'actions' : {
+        },
         'links' : {
             'a' : 'SellingPath-1',
             'b' : 'Ask-Neighbors',
@@ -52,6 +54,8 @@ Kovář: Zdař bůh, neviděl jsi někde mého synka? Hledám Karla celé ráno,
             'b' : 'To je divné... Moje děti taky někam zmizeli! Měli bychom se zeptat u sousedů.',
             # 'c' : 'Mám tvoje děti a už je nikdy neuvidíš!' # TODO
         },
+        'actions' : {
+        },
         'links' : {
             'a' : 'SellingPath-2',
             'b' : 'Ask-Neighbors',
@@ -68,6 +72,8 @@ Kovář: Zdař bůh, neviděl jsi někde mého synka? Hledám Karla celé ráno,
             'b' : 'Chci od kováře víc peněž',
             # 'c' : 'Mám tvoje děti a už je nikdy neuvidíš!' # TODO
         },
+        'actions' : {
+        },
         'links' : {
             'a' : 'SellingPath-Loop-1',
             'b' : 'SellingPath-More-Money', # TODO
@@ -83,6 +89,8 @@ Kovář: Zdař bůh, neviděl jsi někde mého synka? Hledám Karla celé ráno,
             'a' : 'NE, kašlu na to, jdu dál prodávat',
             'b' : 'Jdu se poptat u sousedů',
             'c' : 'Ukončit hru'
+        },
+        'actions' : {
         },
         'links' : {
             'a' : 'SellingPath-Loop-2',
@@ -110,6 +118,8 @@ Kovář: Zdař bůh, neviděl jsi někde mého synka Karla? Hledám ho celou vě
             'b' : 'To je divné... Moje děti taky někam zmizeli! Měli bychom se zeptat u sousedů.',
             # 'c' : 'Mám tvoje děti a už je nikdy neuvidíš!' # TODO
         },
+        'actions' : {
+        },
         'links' : {
             'a' : 'SellingPath-Loop-3',
             'b' : 'Ask-Neighbors',
@@ -125,6 +135,8 @@ Kovář: Zdař bůh, neviděl jsi někde mého synka Karla? Hledám ho celou vě
             'a' : 'Poděkuju Kovářovi a půjdu dál prodávat',
             'b' : 'Chci od kováře víc peněž',
             # 'c' : 'Mám tvoje děti a už je nikdy neuvidíš!' # TODO
+        },
+        'actions' : {
         },
         'links' : {
             'a' : 'SellingPath-Loop-1',
@@ -142,6 +154,8 @@ Kovář: No dobře, tady máš ty peníze.""",
             'a' : 'Poděkuju Kovářovi a půjdu dál prodávat',
             'b' : 'Chci od kováře víc peněž',
             # 'c' : 'Mám tvoje děti a už je nikdy neuvidíš!' # TODO
+        },
+        'actions' : {
         },
         'links' : {
             'a' : 'SellingPath-Loop-1',
@@ -162,6 +176,10 @@ Sousedka: Bohužel ne, ale počkat, naše děti jsou pryč také!""",
             'b' : 'Asi si někde hrají. Já jdu prodávat chleba',
             # 'c' : 'Mám tvoje děti a už je nikdy neuvidíš!' # TODO
         },
+        'actions' : {
+            'a' : '',
+            'b' : ''
+        },
         'links' : {
             'a' : 'Ask-Neighbors-2',
             'b' : 'SellingPath-1',
@@ -169,6 +187,7 @@ Sousedka: Bohužel ne, ale počkat, naše děti jsou pryč také!""",
         },
          'conditionalOpt' : [{
             'text' : 'Kováři zmizeli děti také, takže bychom se měli jít poptat dále',
+            'action' : '',
             'condition' : 'game-var: Meet-Kovar; Ano',
             'link' : 'Ask-Neighbors-2'
         }]
@@ -184,6 +203,8 @@ Soused: Děti jsem nikde neviděl, ale myslím, že je odvedl ten divný, slizk�
             'a' : 'Ó děkuji za tento převzácný dar a slibuji, že se tohoto úkolu zhostím jak nejlépe to jen dokážu!',
             #'b' : '',# TODO
             # 'c' : '' # TODO
+        },
+        'actions' : {
         },
         'links' : {
             'a' : 'END',
@@ -202,6 +223,8 @@ díky za tvou pozornost
 copyright @ David Laušman
 """,
         'options' : {
+        },
+        'actions' : {
         },
         'links' : {
         },
