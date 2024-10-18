@@ -1,3 +1,6 @@
+# Příběhová hra vztvořená pro IVT
+# copyright @ David Laušman 2024
+
 from Story_Texts import storyObj
 import os
 

@@ -1,3 +1,7 @@
+# Příběhová hra vztvořená pro IVT - Dokumentace
+# copyright @ David Laušman 2024
+
+
 ## tohle je ukázková část příběhového objektu
 
 # TODO: action & condition documentation
